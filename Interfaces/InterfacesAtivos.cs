@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace portfolio_investimentos.Interfaces;
+﻿namespace portfolio_investimentos.Interfaces;
 
 // Interface base mínima: todo ativo financeiro deve implementar
 public interface IAtivoFinanceiro
