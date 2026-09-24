@@ -2,15 +2,22 @@
 
 namespace portfolio_investimentos.Models;
 
-internal class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
+public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
 {
     public string Nome => throw new NotImplementedException();
+
+    public decimal Quantidade { get; set; } = 0;
+
+    public decimal PrecoMedioCompraa { get; set; }
 
     public decimal ValorInvestido => throw new NotImplementedException();
 
     public decimal ValorAtual => throw new NotImplementedException();
 
     public string Periodicidade => throw new NotImplementedException();
+
+
+    public decimal DividendosRecebidos { get; set; }
 
     public decimal PrecoMercado => throw new NotImplementedException();
 
