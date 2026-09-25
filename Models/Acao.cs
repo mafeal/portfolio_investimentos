@@ -3,19 +3,15 @@
 namespace portfolio_investimentos.Models;
 
 public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
-{
-    public string Nome { get; set; }
+{   
+
+    public string Nome { get; set; } = string.Empty;
 
     public decimal Quantidade { get; set; } = 0;
 
-    public decimal PrecoMedioCompraa { get; set; }
+    public decimal PrecoMedioCompra { get; set; }
 
-    public decimal ValorInvestido { get; set; } // = Quantidade × PrecoMedioCompra
-
-    public decimal ValorAtual { get; set; } // = Quantidade × PrecoMercado
-
-    public string Periodicidade { get; set; }
-
+    public string Periodicidade { get; set; } = string.Empty;
 
     public decimal DividendosRecebidos { get; set; }
 
@@ -23,30 +19,58 @@ public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
 
     public decimal VariacaoDiaria { get; set; }
 
-    
+    public decimal ValorInvestido { get; set; } // = Quantidade × PrecoMedioCompra
 
-    public decimal CalcularRendaPeriodica() // IGeradorDeRenda
+    public decimal ValorAtual { get; set; } // = Quantidade × PrecoMercado
+
+    public Acao(string nome, decimal quantidade, decimal precoMedioCompra, string periodicidade,
+        decimal dividendosRecebidos, decimal precoMercado, decimal variacaoDiaria)
     {
-        /*
-         * RendaPeriodica = Quantidade × DividendoPorAcao
-        */
-        throw new NotImplementedException();
+        Nome = nome;
+        Quantidade = quantidade;
+        PrecoMedioCompra = precoMedioCompra;
+        Periodicidade = periodicidade;
+        DividendosRecebidos = dividendosRecebidos;
+        PrecoMercado = precoMercado;
+        VariacaoDiaria = variacaoDiaria;
+
+        ValorInvestido = Quantidade * PrecoMedioCompra;
+        ValorAtual = Quantidade * PrecoMercado;
     }
 
 
 
+    // SOLID - Exemplos de Single Responsability:
+    // Cada método abaixo tem apenas uma responsabilidade,
+    // além da classe tratar exclusivamente sobre uma ação.
+
+    /// <summary>
+    /// Implementação do método da interface IGeradorDeRenda.
+    /// Calcula a rentabilidade periódica da ação.
+    /// </summary>
+    /// <returns>decimal rendaPeriódica</returns>
+    public decimal CalcularRendaPeriodica() 
+    {        
+        decimal rendaPeriodica = Quantidade * DividendosRecebidos;
+
+        return rendaPeriodica;
+    }
+
+    /// <summary>
+    /// Implementação do método da interface IAtivoFinanceiro.
+    /// Calcula a rentabilidade da ação.
+    /// </summary>
+    /// <returns>decimal rentabilidade</returns>
     public decimal CalcularRentabilidade()
     {
-        /*
-         * Rentabilidade (%) = 
-         * ((ValorAtual + DividendosRecebidos - ValorInvestido) / ValorInvestido) × 100     * 
-        */
-        throw new NotImplementedException();
+         decimal rentabilidade = ((ValorAtual + DividendosRecebidos - ValorInvestido) / ValorInvestido) * 100;
+        
+         return rentabilidade;
     }
 }
 
 /*
- * Exemplo (serviráa para criar o teste)
+ * Exemplo (servirá para criar o teste)
     Considere:
 
     Quantidade:            100 ações
