@@ -7,7 +7,7 @@ public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
 
     public string Nome { get; set; } = string.Empty;
 
-    public decimal Quantidade { get; set; } = 0;
+    public int Quantidade { get; set; } = 0;
 
     public decimal PrecoMedioCompra { get; set; }
 
@@ -23,7 +23,7 @@ public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
 
     public decimal ValorAtual { get; set; } // = Quantidade × PrecoMercado
 
-    public Acao(string nome, decimal quantidade, decimal precoMedioCompra, string periodicidade,
+    public Acao(string nome, int quantidade, decimal precoMedioCompra, string periodicidade,
         decimal dividendosRecebidos, decimal precoMercado, decimal variacaoDiaria)
     {
         Nome = nome;

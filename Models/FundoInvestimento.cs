@@ -4,13 +4,7 @@ namespace portfolio_investimentos.Models;
 
 internal class FundoInvestimento : IAtivoFinanceiro, IGeradorDeRenda
 {
-    public string Nome { get; set; }
-
-    public decimal ValorInvestido { get; set; } // = QuantidadeCotas × ValorCotaCompr
-
-    public decimal ValorAtual { get; set; } // = QuantidadeCotas × ValorCotaAtual
-
-    public string Periodicidade { get; set; }
+    public string Nome { get; set; } = string.Empty;
 
     public int QuantidadeCotas { get; set; }
 
@@ -22,22 +16,39 @@ internal class FundoInvestimento : IAtivoFinanceiro, IGeradorDeRenda
 
     public decimal RendimentoPorCota { get; set; }
 
+    public string Periodicidade { get; set; } = string.Empty;
+
+    public decimal ValorInvestido { get; set; } // = QuantidadeCotas × ValorCotaCompr
+
+    public decimal ValorAtual { get; set; } // = QuantidadeCotas × ValorCotaAtual
+
+    public FundoInvestimento(string nome, int quantidadeCotas, decimal valorCotaCompra, decimal valorCotaAtual, decimal taxaAdministracao, decimal rendimentoPorCota, string periodicidade)
+    {
+        Nome = nome;
+        QuantidadeCotas = quantidadeCotas;
+        ValorCotaCompra = valorCotaCompra;
+        ValorCotaAtual = valorCotaAtual;
+        TaxaAdministracao = taxaAdministracao;
+        RendimentoPorCota = rendimentoPorCota;
+        Periodicidade = periodicidade;
+
+        ValorInvestido = QuantidadeCotas * ValorCotaCompra;
+        ValorAtual = QuantidadeCotas * ValorCotaAtual;
+    }
 
     public decimal CalcularRendaPeriodica()
     {
-        /*
-         RendaPeriodica = QuantidadeCotas × RendimentoPorCota 
-        */
-        throw new NotImplementedException();
+        var rendaPeriodica = QuantidadeCotas * RendimentoPorCota;
+
+        return rendaPeriodica;
     }
 
     public decimal CalcularRentabilidade()
     {
-        /*
-         Rentabilidade (%) = ((ValorCotaAtual - ValorCotaCompra) 
-            / ValorCotaCompra) × 100 
-        */
-        throw new NotImplementedException();
+
+        var rentabilidade = ((ValorCotaAtual - ValorCotaCompra) / ValorCotaCompra) * 100;
+
+        return rentabilidade;
     }
 
     /*

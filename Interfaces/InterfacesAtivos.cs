@@ -14,7 +14,7 @@ public interface IAtivoFinanceiro
 // Interface específica: ativos que possuem data de vencimento
 public interface IAtivoComVencimento
 {
-    DateTime DataVencimento { get; }
+    DateOnly DataVencimento { get; }
 
     int DiasParaVencimento();
 }
