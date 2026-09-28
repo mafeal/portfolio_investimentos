@@ -2,7 +2,7 @@
 
 namespace portfolio_investimentos.Models;
 
-internal class FundoInvestimento : IAtivoFinanceiro, IGeradorDeRenda
+public class FundoInvestimento : IAtivoFinanceiro, IGeradorDeRenda
 {
     public string Nome { get; set; } = string.Empty;
 

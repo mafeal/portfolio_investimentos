@@ -2,7 +2,7 @@
 
 namespace portfolio_investimentos.Models;
 
-internal class TituloRendaFixa : IAtivoFinanceiro, IAtivoComVencimento
+public class TituloRendaFixa : IAtivoFinanceiro, IAtivoComVencimento
 {
     public string Nome { get; set; } = string.Empty;
 
