@@ -23,6 +23,22 @@ public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
 
     public decimal ValorAtual { get; set; } // = Quantidade × PrecoMercado
 
+    // Construtor público sem parâmetros necessário para Activator.CreateInstance
+    public Acao()
+    {
+        // Inicializa valores padrão seguros
+        Nome = string.Empty;
+        Quantidade = 0;
+        PrecoMedioCompra = 0m;
+        Periodicidade = string.Empty;
+        DividendosRecebidos = 0m;
+        PrecoMercado = 0m;
+        VariacaoDiaria = 0m;
+
+        ValorInvestido = Quantidade * PrecoMedioCompra;
+        ValorAtual = Quantidade * PrecoMercado;
+    }
+
     public Acao(string nome, int quantidade, decimal precoMedioCompra, string periodicidade,
         decimal dividendosRecebidos, decimal precoMercado, decimal variacaoDiaria)
     {
@@ -37,8 +53,6 @@ public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
         ValorInvestido = Quantidade * PrecoMedioCompra;
         ValorAtual = Quantidade * PrecoMercado;
     }
-
-
 
     // SOLID - Exemplos de Single Responsability:
     // Cada método abaixo tem apenas uma responsabilidade,
@@ -68,20 +82,3 @@ public class Acao : IAtivoFinanceiro, IGeradorDeRenda, IAtivoNegociavel
          return rentabilidade;
     }
 }
-
-/*
- * Exemplo (servirá para criar o teste)
-    Considere:
-
-    Quantidade:            100 ações
-    Preço médio de compra: R$ 30,00
-    Preço atual:           R$ 32,50
-    Dividendos recebidos:  R$ 100,00
-
-    Logo:
-    ValorInvestido = 100 × 30,00 = R$ 3.000,00
-    ValorAtual = 100 × 32,50 = R$ 3.250,00
-
-    A rentabilidade será:
-    ((3.250 + 100 - 3.000) / 3.000) × 100 = 11,67%
-*/
