@@ -40,4 +40,16 @@ public static class PortfolioRepository
             "Mensal"
         );
     }
+
+    //EXTRA - Implementação do ativo Cripo 
+    public static Cripto CarregarCripto()
+    {
+        return new Cripto(
+            "Bitcoin",
+            35000.00m,
+            0.05m,
+            2,
+            30000.00m
+        );
+    }
 }

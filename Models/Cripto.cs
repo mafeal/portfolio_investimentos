@@ -2,9 +2,9 @@
 
 namespace portfolio_investimentos.Models;
 
-internal class Cripto : IAtivoFinanceiro, IAtivoNegociavel
+public class Cripto : IAtivoFinanceiro, IAtivoNegociavel
 {
-    public string Nome { get; set; }
+    public string Nome { get; set; } = string.Empty;
 
     public decimal ValorInvestido { get; set; } // = Quantidade × PrecoMedioCompra
 
@@ -18,17 +18,24 @@ internal class Cripto : IAtivoFinanceiro, IAtivoNegociavel
 
     public decimal PrecoMedioCompra { get; set; }
 
+    public Cripto() { }
+
+    public Cripto(string nome, decimal precoMercado, decimal variacaoDiaria, int quantidade, decimal precoMedioCompra)
+    {
+        Nome = nome;
+        PrecoMercado = precoMercado;
+        VariacaoDiaria = variacaoDiaria;
+        Quantidade = quantidade;
+        PrecoMedioCompra = precoMedioCompra;
+
+        ValorInvestido = Quantidade * PrecoMedioCompra;
+        ValorAtual = Quantidade * PrecoMercado;
+    }
+
     public decimal CalcularRentabilidade()
     {
-        /*
-        Rentabilidade (%) = ((ValorAtual - ValorInvestido)
-                             / ValorInvestido) × 100
+        var rentabilidade = ((ValorAtual - ValorInvestido) / ValorInvestido) * 100;
 
-        ou
-
-        Rentabilidade(%) = ((PrecoMercado - PrecoMedioCompra)
-                            / PrecoMedioCompra) × 100
-        */
-        throw new NotImplementedException();
+        return rentabilidade;
     }
 }

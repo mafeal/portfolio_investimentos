@@ -14,6 +14,12 @@ Portfolio<IAtivoFinanceiro>.AdicionaAtivo(rendaFixa1);
 var fundo1 = PortfolioRepository.CarregaFundo();
 Portfolio<IAtivoFinanceiro>.AdicionaAtivo(fundo1);
 
+//EXTRA - PRINCIPIOS O e L - a implementação do ativo Cripo
+//        funciona sem alterar nenehuma funcionalidade e prova
+//        que qulquer IAtivoFinanceiro pode ser implementado por Portfolio.
+var cripto1 = PortfolioRepository.CarregarCripto();
+Portfolio<IAtivoFinanceiro>.AdicionaAtivo(cripto1);
+
 // Carrega os métodos de cálculo e relatório
 Portfolio<IAtivoFinanceiro>.CalcularValorTotal();
 Portfolio<IAtivoFinanceiro>.CalcularRentabilidade();
