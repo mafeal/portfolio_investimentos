@@ -26,4 +26,7 @@ Portfolio<IAtivoFinanceiro>.CalcularRentabilidade();
 Portfolio<IAtivoFinanceiro>.CalculaRendaPeriodicaTotal();
 Portfolio<IAtivoFinanceiro>.GeradorDeRelatorio();
 
+//EXTRA - Filtro genérico.
+Portfolio<IAtivoFinanceiro>.FiltrarPor(a => a.ValorAtual > 10000);
+
 Console.WriteLine("[FIM] Fim da execução.");

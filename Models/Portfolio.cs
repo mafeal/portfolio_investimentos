@@ -120,78 +120,37 @@ public class Portfolio<T> where T : IAtivoFinanceiro
             }
             Console.WriteLine($"| {implementa}");
             Console.WriteLine("|*******************************************|\n");
-
-
         }
     }
 
-    /*
-        #region ACAO
-        Console.WriteLine("[INFO] Calculando a rentabilidade para a ação:");
-        Console.WriteLine($"| Nome {acao1.Nome}");
-        Console.WriteLine($"| Quantidade {acao1.Quantidade}");
-        Console.WriteLine($"| Preco Medio {acao1.PrecoMedioCompra}");
-        Console.WriteLine($"| Periodicidade {acao1.Periodicidade}");
-        Console.WriteLine($"| Dividendos Recebidos {acao1.DividendosRecebidos}");
-        Console.WriteLine($"| Preco Mercado {acao1.PrecoMercado}");
-        Console.WriteLine($"| Variacao Diaria {acao1.VariacaoDiaria}");
-        Console.WriteLine($"| Valor Atual: {acao1.ValorAtual}");
-        
-        
-        var rentabilidade = acao1.CalcularRentabilidade();
-        var rentabilidadePeriodica = acao1.CalcularRendaPeriodica();
-        
-        Console.WriteLine();
-        Console.WriteLine($"| Rentabilidade:           | {rentabilidade.ToString("F2")}");
-        Console.WriteLine($"| Rentabilidade periódica: | {rentabilidadePeriodica.ToString("F2")}");
-        
-        Console.WriteLine();
-        Console.WriteLine("--------------------------------------------------------");
-        #endregion
-        
-        #region RENDA FIXA
-        Console.WriteLine("[INFO] Calculando a rentabilidade para o Título de Renda Fixa:");
-        Console.WriteLine($"| Nome {rendaFixa1.Nome}");
-        Console.WriteLine($"| Valor Investido {rendaFixa1.ValorInvestido}");
-        Console.WriteLine($"| Taxa Anual {rendaFixa1.TaxaAnual}");
-        Console.WriteLine($"| Data de Aplicacao {rendaFixa1.DataAplicacao}");
-        Console.WriteLine($"| Data de Vencimento {rendaFixa1.DataVencimento}");
-        Console.WriteLine($"| Valor Atual: {rendaFixa1.ValorAtual}");
-        
-        
-        var rentabilidadeRF = rendaFixa1.CalcularRentabilidade();
-        var diasParaVencimento = rendaFixa1.DiasParaVencimento();
-        
-        Console.WriteLine();
-        Console.WriteLine($"| Valor Atual:          | {rendaFixa1.ValorAtual}");
-        Console.WriteLine($"| Rentabilidade:        | {rentabilidadeRF}");
-        Console.WriteLine($"| Dias Para Vencimento: | {diasParaVencimento}");
-        
-        Console.WriteLine();
-        Console.WriteLine("--------------------------------------------------------");
-        #endregion
-        
-        #region FUNDOS
-        Console.WriteLine("[INFO] Calculando a rentabilidade para o Fundo:");
-        Console.WriteLine($"| Nome {fundo1.Nome}");
-        Console.WriteLine($"| Quantidade de cotas {fundo1.QuantidadeCotas}");
-        Console.WriteLine($"| Valor da cota na compra {fundo1.ValorCotaCompra}");
-        Console.WriteLine($"| Valor atual da cota {fundo1.ValorCotaAtual}");
-        Console.WriteLine($"| Taxa de administração {fundo1.TaxaAdministracao}");
-        Console.WriteLine($"| Rendimento por cota {fundo1.RendimentoPorCota}");
-        Console.WriteLine($"| Periodicidade {fundo1.Periodicidade}");
-        Console.WriteLine($"| Valor Atual: {fundo1.ValorAtual}");
-        
-        
-        var rentabilidadeFI = fundo1.CalcularRentabilidade();
-        var rentabilidadePeriodicaFI = fundo1.CalcularRendaPeriodica();
-        
-        Console.WriteLine();
-        Console.WriteLine($"| Rentabilidade:           | {rentabilidadeFI}");
-        Console.WriteLine($"| Rentabilidade periódica: | {rentabilidadePeriodicaFI}");
-        
-        Console.WriteLine();
-        #endregion
-    */
+    public static void FiltrarPor(Func<T, bool> predicado)
+    {
+        var ativosFiltrados = Ativos.Where(predicado);
+
+        Console.WriteLine("\n|******************************************|");
+        Console.WriteLine("|**** RELATÓRIO DE ATIVOS SELECIONADOS ****|");
+        Console.WriteLine("|******************************************|\n");
+
+        foreach (var ativo in ativosFiltrados)
+        {
+            var tipo = ativo.GetType();
+            var interfacesImplementadas = tipo.GetInterfaces();
+            Console.WriteLine($"|**** Listando parâmetros do ativo: {tipo.Name}");
+            var parametros = tipo.GetProperties().ToList();
+            foreach(var p in parametros)
+            {
+                var nomeDaPropriedade = p.Name;
+                var valorDaPropriedade = p.GetValue(ativo)!.ToString() ?? "";
+                Console.WriteLine($"| {nomeDaPropriedade}: {valorDaPropriedade}");
+            }
+            string implementa = "Implementa: ";
+            foreach(var i in interfacesImplementadas)
+            {
+                implementa += $" {i.Name}";
+            }
+            Console.WriteLine($"| {implementa}");
+            Console.WriteLine("|*******************************************|\n");
+        }
+    }
 
 }
